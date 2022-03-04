@@ -76,7 +76,7 @@ span.psw {
 
 <h2>Login Form</h2>
 
-<form action="/action_page.php" method="post">
+<form>
   <div class = "main-container">
     <div class="imgcontainer">
         <img src="../static/img_avatar2.png" width="300" height ="300" alt="Avatar" class="avatar">
@@ -84,18 +84,47 @@ span.psw {
     
       <div class="container">
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <input type="text" placeholder="Enter Username" name="uname" id = "username" required>
     
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+        <input type="password" placeholder="Enter Password" name="psw" id = "password" required>
             
-        <button type="submit">Login</button>
-        <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
+        <button onclick="login(event)" type="submit">Login</button>
       </div>
   </div>
 </form>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script>
+  function login(event){
+    var username = document.getElementById('username').value
+    var password = document.getElementById('password').value
+    event.preventDefault();
+    if(username.length <= 0){
+      alert("username is requried")
+    }else if(password.length <= 0){
+      alert("password is requried")
+    }else{
+      console.log(username)
+      console.log(password)
+      axios.post("http://localhost:5000/login", {username: username,password:password}).then(function (response) {
+            console.log(response.data)
+            // do whatever you want if console is [object object] then stringify the response
+            if(response.data == "0"){
+              alert("No User Found")
+              window.location.href="/register";
+            }else{
+              console.log(typeof(response.data))
+              localStorage.setItem("userData", response.data.data);
+              console.log(localStorage.getItem("userData"))
+              alert("login successfull")
+              window.location.href="/";
+            }
+           }).catch(function(error){
+             console.log(error)
+             alert("Failed to login ")
+           });
+    }
+  }
+</script>
 </body>
 </html>

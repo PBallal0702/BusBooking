@@ -13,7 +13,7 @@
   <body>
     <nav class="navbar navbar-dark bg-dark">
         <!-- Navbar content -->
-        <a class="navbar-brand" href="#">Bus Ticket</a>
+        <a class="navbar-brand" href="/">Bus Ticket</a>
         <div >
         <ul style="display: flex; flex-direction: row;">
             <li class="nav-item">
@@ -42,7 +42,7 @@
                     <option disabled hidden selected>From</option>
                     <option>Pune</option>
                     <option>Mumbai</option>
-                    <option>Banglore</option>
+                    <option>Bengaluru</option>
                     <option>Pusad</option>
                   </select>
               </div>
@@ -51,7 +51,7 @@
                     <option disabled hidden selected>To</option>
                     <option>Pune</option>
                     <option>Mumbai</option>
-                    <option>Banglore</option>
+                    <option>Bengaluru</option>
                     <option>Pusad</option>
                   </select>
               </div>
@@ -89,8 +89,9 @@
         var date = document.getElementById('date').value
         var from = document.getElementById('inputFrom').value
         var to = document.getElementById('inputTo').value
+        console.log(!localStorage.getItem("userData"))
         if(!localStorage.getItem("userData")){
-          alert("Please Login")
+          alert("Please Login to continue booking")
           window.location.href="/login";
         }else if(from == to){
           alert("Both cities cannot be same")

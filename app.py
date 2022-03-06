@@ -75,6 +75,25 @@ def loginPost():
 def register():
     return render_template('register.html')
 
+@app.route('/register',methods=['POST'])
+def registerPost():
+    my_json = request.data.decode('utf8').replace("'", '"')
+    data = json.loads(my_json)
+    print(data)
+    cur = conn.cursor()
+    fname = data['fname']
+    email = data['email']
+    username = data['username']
+    password = data['password']
+    query = "INSERT INTO `users` (`fname`,`email`,`username`,`password`) value (%s,%s,%s,%s)"
+    cur.execute(query,(fname,email,username,password))
+    conn.commit()
+    output = cur.fetchall()
+    print(output)
+    return "Success"
+
+
+
 @app.route('/available-bus/')
 def available():
     data = request.args.to_dict(flat=False)

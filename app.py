@@ -1,11 +1,12 @@
 from flask import Flask,render_template,request
 import pymysql
 import json
-
+from flask_cors import CORS
+# select * from buslist as bl join booking as b on bl.id = b.busid where b.userid =2 ;
 conn = pymysql.connect(
-        host='localhost',
-        user='root', 
-        password = "root",
+        host='mybusbooking.cc2zgenujylf.us-east-1.rds.amazonaws.com',
+        user='admin', 
+        password = "Ballal123",
         db='bus_booking',
         )
       
@@ -20,9 +21,25 @@ conn = pymysql.connect(
 
 app = Flask(__name__,template_folder='template')
 
+CORS(app)
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/profile/<id>')
+def profile(id):
+    id = int(id)
+    cur = conn.cursor()
+    query = "SELECT * from `buslist` as bl join `booking` as b on bl.id = b.busid where b.userid =" + str(id)
+    cur.execute(query)
+    output = cur.fetchall()
+    output = list(output)
+    output_list = []
+    for op in output:
+        x = list(op)
+        output_list.append(x)
+    return render_template('profile.html',data=output_list)
     
 @app.route('/index',methods=['POST'])
 def indexPost():

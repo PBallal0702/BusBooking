@@ -10,17 +10,23 @@
 
     <title>Bus Booking</title>
   </head>
-  <body>
+  <body onload="myLogout()">
     <nav class="navbar navbar-dark bg-dark">
         <!-- Navbar content -->
         <a class="navbar-brand" href="/">Bus Ticket</a>
         <div >
         <ul style="display: flex; flex-direction: row;">
             <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
+              <a id ="login" class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/register">Register</a>
+              <a id ="register" class="nav-link" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a id = "profile" class="nav-link" href="/profile" onclick="location.href=this.href+'/'+localStorage.getItem('userData').split(',')[0];return false;" >Profile</a>
+            </li>
+            <li class="nav-item">
+              <a id = "logout" class="nav-link" onclick="logout()">Logout</a>
             </li>
         </ul>
     </div>
@@ -71,6 +77,25 @@
              console.log(error)
            });
       }
+      function myLogout(){
+        if(localStorage.getItem("userData") !=null ){
+          document.getElementById("register").style.visibility="hidden";
+          document.getElementById("login").style.visibility="hidden";
+          document.getElementById("logout").style.visibility="visible";
+          document.getElementById("profile").style.visibility="visible";
+        }else{
+          document.getElementById("logout").style.visibility="hidden";
+          document.getElementById("profile").style.visibility="hidden";
+          document.getElementById("register").style.visibility="visible";
+          document.getElementById("login").style.visibility="visible";
+        }
+        
+      }
+      function logout(){
+        window.localStorage.clear();
+        window.location.href="/";
+      }
+      myLogout()
     </script>
     <!-- Optional JavaScript; choose one of the two! -->
 

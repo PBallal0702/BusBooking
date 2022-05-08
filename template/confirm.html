@@ -10,19 +10,19 @@
 
     <title>Bus Booking</title>
   </head>
-  <body>
+  <body onload="myLogout()">
     <nav class="navbar navbar-dark bg-dark">
         <!-- Navbar content -->
         <a class="navbar-brand" href="/">Bus Ticket</a>
         <div >
-        <ul style="display: flex; flex-direction: row;">
+        <!-- <ul style="display: flex; flex-direction: row;">
             <li class="nav-item">
               <a class="nav-link" href="/login">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
             </li>
-        </ul>
+        </ul> -->
     </div>
     </nav>
 
@@ -35,7 +35,9 @@
                     <div class="card-header"><h1>Booking Confirmed</h1></div>
                     <div class="card-body">
                       <p class="card-text">Your Bus booking is confirm </p>
+                      <p class="card-text"> <a href="/profile/" onclick="location.href=this.href+'/'+localStorage.getItem('userData').split(',')[0];return false;"> Profile</a></p>
                     </div>
+
                 </div>
             </div>
           
